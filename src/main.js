@@ -1,5 +1,4 @@
 // main.js - MATCHA BOOK 5-Product Rebranded Logic
-import './style.css';
 
 /* ==========================================================================
    1. PRODUCT FLAVORS DATA (5 FLAVORS FROM UPLOADED PACKAGES)
@@ -394,7 +393,44 @@ generateFloatingParticles();
 setInterval(generateFloatingParticles, 30000);
 
 /* ==========================================================================
-   10. LEGAL OVERLAYS MODALS LOGIC
+   10. MOBILE MENU HAMBURGER LOGIC
+   ========================================================================== */
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navCapsule = document.querySelector('.nav-capsule');
+
+if (mobileMenuBtn && navCapsule) {
+  const menuIcon = mobileMenuBtn.querySelector('i');
+  
+  mobileMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navCapsule.classList.toggle('open');
+    if (isOpen) {
+      menuIcon.className = 'fa-solid fa-xmark';
+    } else {
+      menuIcon.className = 'fa-solid fa-bars';
+    }
+  });
+
+  // Close menu when a link is clicked
+  const navLinks = navCapsule.querySelectorAll('.nav-link');
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      navCapsule.classList.remove('open');
+      menuIcon.className = 'fa-solid fa-bars';
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navCapsule.contains(e.target) && e.target !== mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
+      navCapsule.classList.remove('open');
+      menuIcon.className = 'fa-solid fa-bars';
+    }
+  });
+}
+
+/* ==========================================================================
+   11. LEGAL OVERLAYS MODALS LOGIC
    ========================================================================== */
 const legalLinks = document.querySelectorAll('.legal-link');
 const modalCloses = document.querySelectorAll('.modal-close');

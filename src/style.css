@@ -152,27 +152,11 @@ body {
   background: var(--color-forest-accent);
 }
 
-/* Promo Announcement Banner */
-.promo-banner {
-  background-color: #0b1a0e;
-  color: #ffde59;
-  font-family: var(--font-headings);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 8px 16px;
-  z-index: 100;
-  position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /* ==========================================================================
    3. FULL-SCREEN CONTAINER & FRAME
    ========================================================================== */
 .outer-container {
-  min-height: calc(100vh - 31px);
+  min-height: 100vh;
   width: 100vw;
   background-color: var(--outer-bg);
   display: flex;
@@ -193,7 +177,7 @@ body {
 /* Full-screen Website Card Frame */
 .mockup-card {
   width: 100vw;
-  height: calc(100vh - 31px);
+  height: 100vh;
   background-color: var(--color-cream-bg);
   border-radius: 0;
   box-shadow: none;
@@ -299,6 +283,10 @@ body {
 .action-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hamburger-btn {
+  display: none;
 }
 
 .cart-badge {
@@ -582,9 +570,7 @@ body {
   filter: blur(0);
   z-index: 3;
 }
-.slide.active .pouch-img {
-  /* No drop-shadow to keep the image blending borderless */
-}
+
 
 /* Fluid container and morphing blobs */
 .slide-fluid-container {
@@ -1576,6 +1562,9 @@ body {
 /* ==========================================================================
    12. MEDIA QUERIES FOR RESPONSIVENESS
    ========================================================================== */
+/* ==========================================================================
+   12. MEDIA QUERIES FOR RESPONSIVENESS
+   ========================================================================== */
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1584,8 +1573,13 @@ body {
   }
   
   .hero-left {
+    order: 2;
     text-align: center;
     align-items: center;
+  }
+  
+  .hero-right-slider {
+    order: 1;
   }
   
   .hero-subtitle {
@@ -1598,6 +1592,11 @@ body {
   
   .mockup-card {
     height: auto;
+    overflow-x: hidden;
+  }
+  
+  .outer-container {
+    overflow-x: hidden;
   }
   
   .about-grid {
@@ -1621,16 +1620,266 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  /* Compact Top Header */
+  .glass-header {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    transform: none;
+    height: 60px;
+    padding: 0 16px;
+    border-radius: 30px;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .action-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  
+  /* Mobile Hamburger Button */
+  .hamburger-btn {
+    display: flex;
+  }
+  
+  /* Dropdown Menu inside Hamburger */
+  .nav-capsule {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 16px;
+    border-radius: 24px;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 999;
+  }
+  
+  .nav-capsule.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .nav-link {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
+    color: var(--color-text-title);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    transition: var(--transition-fast);
+  }
+  
+  .nav-link:hover {
+    color: var(--color-btn-primary-text);
+    background-color: var(--color-btn-primary);
+  }
+  
+  .nav-link.active {
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-primary-text);
+  }
+  
+  /* Hero Section Scaled Down */
+  .hero-section {
+    padding-top: 90px;
+    padding-bottom: 40px;
+  }
+  
+  .hero-title {
+    font-size: 34px;
+  }
+  
+  .hero-subtitle {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .hero-buttons {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+    font-size: 11px;
+  }
+  
+  /* Mobile Product Slider */
+  .product-stage {
+    height: 300px;
+  }
+  
+  .slide {
+    width: 70%;
+    left: 15%;
+  }
+  
+  .slide.next {
+    transform: translate3d(45%, 10px, 0) scale(0.65);
+    opacity: 0.45;
+  }
+  
+  .slide.prev {
+    transform: translate3d(-45%, 10px, 0) scale(0.65);
+  }
+  
+  /* Slider Controls for Touch Devices */
+  .slider-nav {
+    display: flex;
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 24px;
+    z-index: 10;
+  }
+  
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .size-selector {
+    margin-bottom: 15px;
+  }
+  
+  .fluid-blob {
+    width: 180px;
+    height: 180px;
+    filter: blur(25px);
+  }
+  
+  /* Section Spacings & Paddings */
+  .about-section {
+    padding: 0 16px 40px 16px;
+  }
+  
+  .about-grid {
+    gap: 30px;
+    padding: 30px 0;
+  }
+  
+  .about-right-col h2 {
+    font-size: 30px;
+  }
+  
+  .about-block h3 {
+    font-size: 22px;
+  }
+  
+  .menu-section {
+    padding: 20px 16px 40px 16px;
+  }
+  
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  
+  .faq-section {
+    padding: 20px 16px 40px 16px;
+  }
+  
+  .faq-card {
+    padding: 24px 16px;
+    gap: 24px;
+  }
+  
+  .faq-title {
+    font-size: 30px;
+  }
+  
+  .accordion-header {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+  
+  .accordion-inner {
+    padding: 0 16px 16px 16px;
+  }
+  
+  /* Testimonials height fix and layout */
+  .testimonials-section {
+    padding: 30px 16px 50px 16px;
+  }
+  
+  .testimonials-heading {
+    font-size: 28px;
+  }
+  
+  .testimonials-subheading {
+    margin-bottom: 24px;
+  }
+  
+  .testimonial-cards-stage {
+    height: 290px;
+  }
+  
+  .testimonial-card {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .testimonial-text {
+    font-size: 13px;
+  }
+  
+  /* Footer mobile adjustments */
+  .site-footer {
+    padding: 30px 16px;
+    gap: 16px;
+  }
+  
+  .footer-links {
+    gap: 16px;
+  }
+  
+  .footer-contact {
+    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 @media (max-width: 580px) {
   .menu-grid {
     grid-template-columns: 1fr;
   }
   
   .hero-title {
-    font-size: 38px;
+    font-size: 28px;
   }
   
   .about-right-col h2 {
-    font-size: 32px;
+    font-size: 26px;
+  }
+  
+  .testimonial-cards-stage {
+    height: 310px; /* even more room for wrapped text */
   }
 }
