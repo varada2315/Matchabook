@@ -19,6 +19,8 @@ function saveCart() {
 function renderCart() {
   const wrapper = document.getElementById('cartItemsWrapper');
   const cartSubtotalEl = document.getElementById('cartSubtotal');
+  const cartDiscountRow = document.getElementById('cartDiscountRow');
+  const cartDiscountEl = document.getElementById('cartDiscount');
   const cartShippingEl = document.getElementById('cartShipping');
   const cartGrandTotalEl = document.getElementById('cartGrandTotal');
   const shippingGoalText = document.getElementById('shipping-goal-text');
@@ -26,7 +28,7 @@ function renderCart() {
   const proceedToCheckoutBtn = document.getElementById('proceedToCheckoutBtn');
   
   if (!wrapper) return;
-  
+
   if (cart.length === 0) {
     wrapper.innerHTML = `
       <div class="empty-cart-state">
@@ -36,6 +38,7 @@ function renderCart() {
       </div>
     `;
     cartSubtotalEl.textContent = '₹0';
+    if (cartDiscountRow) cartDiscountRow.style.display = 'none';
     cartShippingEl.textContent = '₹0';
     cartGrandTotalEl.textContent = '₹0';
     
@@ -57,10 +60,12 @@ function renderCart() {
   
   wrapper.innerHTML = '';
   let subtotal = 0;
+  let totalQty = 0;
   
   cart.forEach((item, index) => {
     const itemTotal = item.price * item.quantity;
     subtotal += itemTotal;
+    totalQty += item.quantity;
     
     const cartItemDiv = document.createElement('div');
     cartItemDiv.className = 'cart-item';
@@ -82,6 +87,9 @@ function renderCart() {
     `;
     wrapper.appendChild(cartItemDiv);
   });
+  
+  // Volume discount calculation (10% off for 2+ items)
+  const discountAmount = totalQty >= 2 ? Math.round(subtotal * 0.10) : 0;
   
   // Shipping details computation
   const shippingThreshold = 1199;
@@ -106,9 +114,17 @@ function renderCart() {
     }
   }
   
-  const grandTotal = subtotal + shippingFee;
+  const grandTotal = subtotal - discountAmount + shippingFee;
   
   cartSubtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+  
+  if (discountAmount > 0) {
+    if (cartDiscountRow) cartDiscountRow.style.display = 'flex';
+    if (cartDiscountEl) cartDiscountEl.textContent = `-₹${discountAmount.toLocaleString('en-IN')}`;
+  } else {
+    if (cartDiscountRow) cartDiscountRow.style.display = 'none';
+  }
+  
   cartShippingEl.textContent = shippingFee === 0 ? 'FREE' : `₹${shippingFee}`;
   cartGrandTotalEl.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
   

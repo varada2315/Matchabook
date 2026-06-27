@@ -507,22 +507,6 @@ buyNowBtns.forEach((btn) => {
 
 // Event listeners for hero cart/checkout actions
 const heroBuyNowBtn = document.getElementById('heroBuyNowBtn');
-const heroAddToCartBtn = document.getElementById('heroAddToCartBtn');
-
-if (heroAddToCartBtn) {
-  heroAddToCartBtn.addEventListener('click', () => {
-    const activeSizeBtn = document.querySelector('.size-btn.active');
-    const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
-    
-    addToCartItem(currentSlide, size);
-    
-    const oldText = heroAddToCartBtn.textContent;
-    heroAddToCartBtn.textContent = "ADDED ✓";
-    setTimeout(() => {
-      heroAddToCartBtn.textContent = oldText;
-    }, 1200);
-  });
-}
 
 if (heroBuyNowBtn) {
   heroBuyNowBtn.addEventListener('click', () => {

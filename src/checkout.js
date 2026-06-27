@@ -14,6 +14,8 @@ function updateCartBadge() {
 function renderCheckout() {
   const summaryWrapper = document.getElementById('checkoutSummaryItems');
   const subtotalEl = document.getElementById('checkoutSubtotal');
+  const discountRow = document.getElementById('checkoutDiscountRow');
+  const discountEl = document.getElementById('checkoutDiscount');
   const shippingEl = document.getElementById('checkoutShipping');
   const grandTotalEl = document.getElementById('checkoutGrandTotal');
   const placeOrderBtn = document.getElementById('placeOrderBtn');
@@ -27,9 +29,11 @@ function renderCheckout() {
   summaryWrapper.innerHTML = '';
   
   let subtotal = 0;
+  let totalQty = 0;
   cart.forEach(item => {
     const itemTotal = item.price * item.quantity;
     subtotal += itemTotal;
+    totalQty += item.quantity;
     
     const summaryItemDiv = document.createElement('div');
     summaryItemDiv.className = 'checkout-summary-item';
@@ -43,11 +47,20 @@ function renderCheckout() {
     summaryWrapper.appendChild(summaryItemDiv);
   });
   
+  const discountAmount = totalQty >= 2 ? Math.round(subtotal * 0.10) : 0;
   const shippingThreshold = 1199;
   const shippingFee = subtotal >= shippingThreshold ? 0 : 99;
-  const grandTotal = subtotal + shippingFee;
+  const grandTotal = subtotal - discountAmount + shippingFee;
   
   subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+  
+  if (discountAmount > 0) {
+    if (discountRow) discountRow.style.display = 'flex';
+    if (discountEl) discountEl.textContent = `-₹${discountAmount.toLocaleString('en-IN')}`;
+  } else {
+    if (discountRow) discountRow.style.display = 'none';
+  }
+  
   shippingEl.textContent = shippingFee === 0 ? 'FREE' : `₹${shippingFee}`;
   grandTotalEl.textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
   placeOrderBtn.textContent = `Place Order & Pay: ₹${grandTotal.toLocaleString('en-IN')}`;
@@ -151,9 +164,14 @@ if (checkoutForm) {
       
       // Calculate final totals
       let subtotal = 0;
-      cart.forEach(item => { subtotal += item.price * item.quantity; });
+      let totalQty = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+        totalQty += item.quantity;
+      });
+      const discountAmount = totalQty >= 2 ? Math.round(subtotal * 0.10) : 0;
       const shippingFee = subtotal >= 1199 ? 0 : 99;
-      const grandTotal = subtotal + shippingFee;
+      const grandTotal = subtotal - discountAmount + shippingFee;
       
       const lastOrderData = {
         name: shippingName,
@@ -164,6 +182,7 @@ if (checkoutForm) {
         date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
         items: cart,
         subtotal: subtotal,
+        discount: discountAmount,
         shipping: shippingFee,
         grandTotal: grandTotal
       };

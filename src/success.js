@@ -62,7 +62,18 @@ function renderInvoice() {
     });
   }
   
+  const invoiceDiscountRow = document.getElementById('invoiceDiscountRow');
+  const invoiceDiscountEl = document.getElementById('invoiceDiscount');
+  
   if (invoiceSubtotalEl) invoiceSubtotalEl.textContent = `₹${orderData.subtotal.toLocaleString('en-IN')}`;
+  
+  if (orderData.discount && orderData.discount > 0) {
+    if (invoiceDiscountRow) invoiceDiscountRow.style.display = 'flex';
+    if (invoiceDiscountEl) invoiceDiscountEl.textContent = `-₹${orderData.discount.toLocaleString('en-IN')}`;
+  } else {
+    if (invoiceDiscountRow) invoiceDiscountRow.style.display = 'none';
+  }
+  
   if (invoiceShippingEl) invoiceShippingEl.textContent = orderData.shipping === 0 ? 'FREE' : `₹${orderData.shipping}`;
   if (invoiceGrandTotalEl) invoiceGrandTotalEl.textContent = `₹${orderData.grandTotal.toLocaleString('en-IN')}`;
 }

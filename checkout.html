@@ -98,9 +98,6 @@
                     <button type="button" class="payment-tab" data-method="upi">
                       <i class="fa-solid fa-mobile-screen-button"></i> UPI
                     </button>
-                    <button type="button" class="payment-tab" data-method="cod">
-                      <i class="fa-solid fa-hand-holding-dollar"></i> COD
-                    </button>
                   </div>
 
                   <!-- Credit Card Details Form -->
@@ -130,13 +127,7 @@
                     </div>
                   </div>
 
-                  <!-- COD Notice -->
-                  <div class="payment-content" id="payment-content-cod">
-                    <div class="cod-notice">
-                      <i class="fa-solid fa-circle-check"></i>
-                      <p>You have selected Cash on Delivery. You will pay in cash or via UPI when our delivery partner reaches your address.</p>
-                    </div>
-                  </div>
+
                 </div>
               </div>
 
@@ -153,6 +144,10 @@
                   <div class="summary-line">
                     <span>Subtotal</span>
                     <span id="checkoutSubtotal">₹0</span>
+                  </div>
+                  <div class="summary-line" id="checkoutDiscountRow" style="display: none; color: #2e7d32; font-weight: 600;">
+                    <span>Volume Discount (10% Off)</span>
+                    <span id="checkoutDiscount">-₹0</span>
                   </div>
                   <div class="summary-line">
                     <span>Shipping</span>
@@ -269,6 +264,12 @@
         </div>
       </div>
     </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919899801069?text=Hi%21%20I%20have%20a%20question%20about%20MATCHA%20BOOK." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="whatsapp-tooltip">Chat with us!</span>
+    </a>
 
     <!-- Page Specific Script -->
     <script type="module" src="/src/checkout.js"></script>

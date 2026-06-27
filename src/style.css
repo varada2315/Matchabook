@@ -996,6 +996,11 @@ body {
   margin: 0 auto;
 }
 
+#menu .menu-grid {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 950px;
+}
+
 .menu-card {
   background-color: #ffffff;
   border-radius: var(--radius-lg);
@@ -3197,7 +3202,7 @@ body {
 
 .ritual-grid {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
 }
@@ -3266,6 +3271,197 @@ body {
   .ritual-container {
     padding: 30px 0 45px 0;
     margin: 30px 16px 0 16px;
+  }
+}
+
+/* 13. PREPARATION RITUAL SECTION / COMPONENT */
+.preparation-guide-container {
+  margin-top: 56px;
+  padding: 40px 24px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.preparation-guide-title {
+  font-family: var(--font-headings);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-dark-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.preparation-guide-subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-light-text);
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.preparation-guide-img-wrapper {
+  display: inline-block;
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background-color: #ffffff;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+}
+
+.preparation-guide-img-wrapper:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+}
+
+.preparation-guide-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .preparation-guide-container {
+    padding: 30px 16px;
+    margin-top: 40px;
+  }
+  .preparation-guide-title {
+    font-size: 22px;
+  }
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 34px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background-color: #20ba5a;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  color: #ffffff;
+}
+
+.whatsapp-float i {
+  display: block;
+}
+
+/* Tooltip animation on hover */
+.whatsapp-tooltip {
+  position: absolute;
+  right: 76px;
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background-color: #333333;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #333333;
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+  .whatsapp-tooltip {
+    display: none; /* Hide tooltip on touch screens */
+  }
+}
+
+/* 14. PREPARATION GUIDE COLUMNS GRID LAYOUT */
+.preparation-guide-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  text-align: left;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.preparation-guide-text {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.preparation-guide-text-block h4 {
+  font-family: var(--font-headings);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-dark-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.preparation-guide-text-block p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(29, 51, 33, 0.8);
+}
+
+@media (max-width: 992px) {
+  .preparation-guide-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  .preparation-guide-text {
+    text-align: left;
   }
 }
 

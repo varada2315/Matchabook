@@ -70,7 +70,7 @@
                 </div>
                 <div class="hero-buttons">
                   <button class="btn btn-primary" id="heroBuyNowBtn">BUY NOW</button>
-                  <button class="btn btn-secondary" id="heroAddToCartBtn">ADD TO CART</button>
+                  <a href="/products.html" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">VIEW ALL PRODUCTS</a>
                 </div>
 
                 <!-- Trust badges for matcha certification -->
@@ -183,27 +183,54 @@
                   For us, it's not just about selling matcha - it's about fostering a community that values the beauty of slow living and the joy of savoring life's simple pleasures. Our customers are the heart of MATCHA BOOK, and we're committed to delivering an unparalleled experience that's as much about the journey as it is about the destination. With every sip, we hope to inspire our customers to find peace, to connect with themselves and each other, and to make every moment a celebration of life's simplest delights.
                 </p>
             </div>
+          </div> <!-- Close about-grid to allow daily ritual & visual guide to take full width -->
 
-            <!-- THE DAILY RITUAL SUBSECTION -->
-            <div class="ritual-container">
-              <div class="ritual-grid">
-                <div class="ritual-img-col">
-                  <div class="ritual-img-wrapper">
-                    <img src="/matcha_pouch_lifestyle.png" alt="MATCHA BOOK Ceremonial Pouch with Whisk and Matcha Bowl" class="ritual-img">
-                  </div>
+          <!-- THE DAILY RITUAL SUBSECTION -->
+          <div class="ritual-container">
+            <div class="ritual-grid">
+              <div class="ritual-img-col">
+                <div class="ritual-img-wrapper">
+                  <img src="/matcha_pouch_lifestyle.png" alt="MATCHA BOOK Ceremonial Pouch with Whisk and Matcha Bowl" class="ritual-img">
                 </div>
-                <div class="ritual-text-col">
-                  <span class="block-tag">THE DAILY RITUAL</span>
-                  <h2>Whisking a Moment of Serenity</h2>
-                  <p>
-                    Preparing matcha is more than making a drink—it is a centuries-old mindfulness practice. By taking three minutes to warm your bowl, sift your tea, and whisk it into a smooth, frothy green elixir, you create a dedicated boundary of peace in your day.
-                  </p>
-                  <p>
-                    Our Ceremonial Grade pouch is designed to stand beautifully in your kitchen, serving as a daily invitation to slow down, breathe, and savor a peaceful moment amidst the chaos.
-                  </p>
+              </div>
+              <div class="ritual-text-col">
+                <span class="block-tag">THE DAILY RITUAL</span>
+                <h2>Whisking a Moment of Serenity</h2>
+                <p>
+                  Preparing matcha is more than making a drink—it is a centuries-old mindfulness practice. By taking three minutes to warm your bowl, sift your tea, and whisk it into a smooth, frothy green elixir, you create a dedicated boundary of peace in your day.
+                </p>
+                <p>
+                  Our Ceremonial Grade pouch is designed to stand beautifully in your kitchen, serving as a daily invitation to slow down, breathe, and savor a peaceful moment amidst the chaos.
+                </p>
+              </div>
+            </div>
+
+            <!-- Matcha Preparation Visual Guide -->
+            <div class="preparation-guide-container">
+              <h3 class="preparation-guide-title">How to Prepare the Perfect Bowl</h3>
+              <p class="preparation-guide-subtitle">Choose the ideal grade for your daily ritual and learn how to prepare each bowl mindfully.</p>
+              
+              <div class="preparation-guide-content">
+                <div class="preparation-guide-img-wrapper">
+                  <img src="/matcha_guide.jpg" alt="MATCHA BOOK grades and preparation guide" class="preparation-guide-img">
+                </div>
+                <div class="preparation-guide-text">
+                  <div class="preparation-guide-text-block">
+                    <h4>1. Ceremonial Grade Ritual</h4>
+                    <p>Stone-ground from first-flush spring leaves. Sift 1-2g into a warm bowl, add 60-70ml of hot water (70-80°C), and whisk in a quick W-motion using a chasen (bamboo whisk) until a thick, velvety green froth forms. Best enjoyed pure.</p>
+                  </div>
+                  <div class="preparation-guide-text-block">
+                    <h4>2. Signature Latte Blend</h4>
+                    <p>A balanced, smooth second-harvest matcha. Sift 2g of matcha, whisk with 50ml of warm water until fully smooth, and pour over 150ml of your favorite cold or steamed milk (oat milk is highly recommended) for a creamy, delicate cup.</p>
+                  </div>
+                  <div class="preparation-guide-text-block">
+                    <h4>3. Everyday Culinary Grade</h4>
+                    <p>Ground from later harvests, offering a robust flavor profile. Sift 2g of matcha directly into breakfast smoothies, protein shakes, or daily baked goods to add a clean, calm energy boost to your busy morning.</p>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
             <!-- Floating Particle Elements (Matcha leaves, fruit slices) -->
             <div class="floating-container" id="floatingContainer">
@@ -246,7 +273,7 @@
               </div>
               <div class="infographic-img-col">
                 <div class="infographic-img-wrapper">
-                  <img src="/matcha_guide.jpg" alt="The Matcha Guide - Comparison of Ceremonial, Signature, and Everyday grades" class="infographic-img">
+                  <img src="/matcha_pouches_clean.jpg" alt="The Matcha Guide - Comparison of Ceremonial, Signature, and Everyday grades" class="infographic-img">
                 </div>
               </div>
             </div>
@@ -659,6 +686,12 @@
         </div>
       </div>
     </div>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919899801069?text=Hi%21%20I%20have%20a%20question%20about%20MATCHA%20BOOK." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span class="whatsapp-tooltip">Chat with us!</span>
+    </a>
 
     <!-- Main JS Application script -->
     <script type="module" src="/src/main.js"></script>
