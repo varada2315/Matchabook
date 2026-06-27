@@ -23,25 +23,27 @@
       <!-- Main website container card -->
       <div class="mockup-card" id="mockupCard">
         
+        <!-- Announcement Bar -->
+        <div class="announcement-bar">
+          <span>✨ Free shipping on orders above ₹1,199 | Premium Grade Uji Matcha ✨</span>
+        </div>
+        
         <!-- Header / Navigation -->
         <header class="glass-header">
           <div class="logo">
             <span class="logo-txt">MATCHA BOOK</span><span class="logo-accent">.</span>
           </div>
           <nav class="nav-capsule">
-            <a href="#" class="nav-link active">HOME</a>
-            <a href="#menu" class="nav-link">MENU</a>
-            <a href="#about" class="nav-link">ABOUT</a>
-            <a href="#faq" class="nav-link">FAQ</a>
+            <a href="/index.html" class="nav-link active">HOME</a>
+            <a href="/products.html" class="nav-link">PRODUCTS</a>
+            <a href="/index.html#about" class="nav-link">ABOUT</a>
+            <a href="/index.html#faq" class="nav-link">FAQ</a>
           </nav>
           <div class="header-actions">
-            <button class="action-btn" aria-label="Profile">
-              <i class="fa-regular fa-user"></i>
-            </button>
-            <button class="action-btn cart-btn" aria-label="Shopping Cart">
+            <a href="/cart.html" class="action-btn cart-btn" aria-label="Shopping Cart" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
               <i class="fa-solid fa-bag-shopping"></i>
-              <span class="cart-badge" id="cartBadge">2</span>
-            </button>
+              <span class="cart-badge" id="cartBadge">0</span>
+            </a>
             <button class="action-btn hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
               <i class="fa-solid fa-bars"></i>
             </button>
@@ -61,9 +63,14 @@
                 <p class="hero-subtitle" id="heroSubtitle">
                   Elevate your daily ritual with every sip of MATCHA BOOK's premium matcha blends, carefully crafted to bring you a moment of serenity in the midst of chaos. Experience the harmony of nature in every cup, carefully curated for the modern wellness enthusiast.
                 </p>
+                <div class="hero-price-display">
+                  <span class="hero-premium-tag">Premium Grade</span>
+                  <span class="hero-price-original" id="heroPriceOriginal">₹3,779</span>
+                  <span class="hero-price-current" id="heroPriceCurrent">₹1,699</span>
+                </div>
                 <div class="hero-buttons">
-                  <button class="btn btn-primary" id="orderNowBtn">Find Your Blend</button>
-                  <a href="#menu" class="btn btn-secondary" style="text-decoration: none; display: inline-block; text-align: center;">SEE MENU ITEMS</a>
+                  <button class="btn btn-primary" id="heroBuyNowBtn">BUY NOW</button>
+                  <button class="btn btn-secondary" id="heroAddToCartBtn">ADD TO CART</button>
                 </div>
 
                 <!-- Trust badges for matcha certification -->
@@ -106,9 +113,10 @@
               <div class="hero-right-slider">
                 <!-- Size Selector Pill -->
                 <div class="size-selector">
-                  <button class="size-btn">50g</button>
-                  <button class="size-btn active">100g</button>
-                  <button class="size-btn">500g</button>
+                  <button class="size-btn" data-size="30g">30g</button>
+                  <button class="size-btn" data-size="50g">50g</button>
+                  <button class="size-btn active" data-size="100g">100g</button>
+                  <button class="size-btn" data-size="200g">200g</button>
                 </div>
 
                 <!-- Product Display Container -->
@@ -174,6 +182,26 @@
                 <p>
                   For us, it's not just about selling matcha - it's about fostering a community that values the beauty of slow living and the joy of savoring life's simple pleasures. Our customers are the heart of MATCHA BOOK, and we're committed to delivering an unparalleled experience that's as much about the journey as it is about the destination. With every sip, we hope to inspire our customers to find peace, to connect with themselves and each other, and to make every moment a celebration of life's simplest delights.
                 </p>
+            </div>
+
+            <!-- THE DAILY RITUAL SUBSECTION -->
+            <div class="ritual-container">
+              <div class="ritual-grid">
+                <div class="ritual-img-col">
+                  <div class="ritual-img-wrapper">
+                    <img src="/matcha_pouch_lifestyle.png" alt="MATCHA BOOK Ceremonial Pouch with Whisk and Matcha Bowl" class="ritual-img">
+                  </div>
+                </div>
+                <div class="ritual-text-col">
+                  <span class="block-tag">THE DAILY RITUAL</span>
+                  <h2>Whisking a Moment of Serenity</h2>
+                  <p>
+                    Preparing matcha is more than making a drink—it is a centuries-old mindfulness practice. By taking three minutes to warm your bowl, sift your tea, and whisk it into a smooth, frothy green elixir, you create a dedicated boundary of peace in your day.
+                  </p>
+                  <p>
+                    Our Ceremonial Grade pouch is designed to stand beautifully in your kitchen, serving as a daily invitation to slow down, breathe, and savor a peaceful moment amidst the chaos.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -183,9 +211,91 @@
             </div>
           </section>
 
-          <!-- MENU SECTION (5 FLAVORS IN A RESPONSIVE GRID) -->
+          <!-- THE MATCHA GUIDE SECTION -->
+          <section class="guide-section" id="guide">
+            <div class="infographic-grid">
+              <div class="infographic-text-col">
+                <span class="block-tag">MATCHA EDUCATION</span>
+                <h2>The Matcha Guide</h2>
+                <p>
+                  Not all matcha is created equal. The grade, processing, and harvesting method determine the flavor profile and how the tea should be prepared. Discover the perfect grade to fit your daily ritual.
+                </p>
+                <ul class="infographic-list">
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-leaf"></i>
+                    <div>
+                      <h4>Ceremonial Matcha</h4>
+                      <p>Stone-ground from the youngest first-harvest leaves. Exceptionally smooth, sweet, and delicate. Best enjoyed pure, whisked with warm water.</p>
+                    </div>
+                  </li>
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <div>
+                      <h4>Signature Matcha</h4>
+                      <p>A balanced, smooth, and versatile second-harvest blend. Rich, mellow, and full-bodied. Ideal for premium lattes and iced matchas.</p>
+                    </div>
+                  </li>
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                    <div>
+                      <h4>Everyday Matcha</h4>
+                      <p>Bold, spirited, and budget-friendly. Sourced from later harvests, providing a robust flavor that cuts through ingredients. Great for daily baking, smoothies, and recipes.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="infographic-img-col">
+                <div class="infographic-img-wrapper">
+                  <img src="/matcha_guide.jpg" alt="The Matcha Guide - Comparison of Ceremonial, Signature, and Everyday grades" class="infographic-img">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- TASTE PROFILE SECTION -->
+          <section class="taste-profile-section" id="taste-profile">
+            <div class="infographic-grid reversed">
+              <div class="infographic-img-col">
+                <div class="infographic-img-wrapper">
+                  <img src="/matcha_taste_profile.png" alt="Ceremonial Matcha Taste Profile Analysis Chart" class="infographic-img">
+                </div>
+              </div>
+              <div class="infographic-text-col">
+                <span class="block-tag">TASTE PROFILE</span>
+                <h2>Ceremonial Grade Analytics</h2>
+                <p>
+                  Our Ceremonial Grade Uji Matcha undergoes rigorous taste and visual grading by licensed Japanese tea masters to ensure an elite sensory experience.
+                </p>
+                <ul class="infographic-list">
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-certificate"></i>
+                    <div>
+                      <h4>90% Umami & 90% Aroma</h4>
+                      <p>Shade-grown for 3 to 4 weeks prior to harvest to maximize chlorophyll and L-theanine levels, resulting in a rich savory umami taste and high, vegetative fragrance.</p>
+                    </div>
+                  </li>
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-star"></i>
+                    <div>
+                      <h4>95% Smoothness & 95% Color</h4>
+                      <p>Stone-ground to a micro-fine powder that suspends perfectly in water. Sifting is minimal, resulting in a creamy texture and vibrant electric-green color.</p>
+                    </div>
+                  </li>
+                  <li class="infographic-list-item">
+                    <i class="fa-solid fa-ban"></i>
+                    <div>
+                      <h4>Only 10% Bitterness</h4>
+                      <p>By using exclusively first-flush spring leaves with all stems and veins painstakingly removed (Tencha), bitterness is virtually non-existent.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- MENU SECTION (FEATURED PRODUCTS PREVIEW) -->
           <section class="menu-section" id="menu">
-            <h2 class="section-title">Find Your Blend</h2>
+            <h2 class="section-title">Featured Blends</h2>
             <div class="menu-grid">
               <!-- Card 1: Ceremonial -->
               <div class="menu-card" data-flavor="0">
@@ -193,95 +303,110 @@
                   <img src="/ceremonial_matcha.jpg" alt="Ceremonial Matcha Packaging" class="menu-card-img">
                 </div>
                 <div class="menu-card-info">
-                  <span class="card-badge-sale">40% OFF</span>
+                  <div class="card-badges">
+                    <span class="card-badge-sale">40% OFF</span>
+                    <span class="card-badge-premium">Premium Grade</span>
+                  </div>
                   <h3>Ceremonial Matcha</h3>
                   <p class="menu-card-desc">Pure ceremonial-grade organic green tea powder sourced from Uji, Kyoto.</p>
+                  <div class="card-size-selector">
+                    <button class="card-size-btn" data-size="30g">30g</button>
+                    <button class="card-size-btn" data-size="50g">50g</button>
+                    <button class="card-size-btn active" data-size="100g">100g</button>
+                    <button class="card-size-btn" data-size="200g">200g</button>
+                  </div>
                   <div class="menu-card-footer">
                     <div class="price-container">
-                      <span class="price-original">$49.99</span>
-                      <span class="price">$29.99</span>
+                      <span class="price-original">₹3,779</span>
+                      <span class="price">₹1,699</span>
                     </div>
-                    <button class="btn btn-buy" data-id="ceremonial">BUY NOW</button>
+                    <div class="card-action-buttons">
+                      <button class="btn btn-add-to-cart" data-id="ceremonial">ADD TO CART</button>
+                      <button class="btn btn-buy-now" data-id="ceremonial">BUY NOW</button>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <!-- Card 2: Strawberry -->
               <div class="menu-card" data-flavor="1">
                 <div class="menu-card-img-wrapper">
                   <img src="/strawberry_matcha.jpg" alt="Strawberry Matcha Packaging" class="menu-card-img">
                 </div>
                 <div class="menu-card-info">
-                  <span class="card-badge-sale">40% OFF</span>
+                  <div class="card-badges">
+                    <span class="card-badge-sale">55% OFF</span>
+                    <span class="card-badge-premium">Premium Grade</span>
+                  </div>
                   <h3>Strawberry Matcha</h3>
                   <p class="menu-card-desc">Ceremonial matcha infused with 100% organic freeze-dried strawberry powder.</p>
+                  <div class="card-size-selector">
+                    <button class="card-size-btn" data-size="30g">30g</button>
+                    <button class="card-size-btn" data-size="50g">50g</button>
+                    <button class="card-size-btn active" data-size="100g">100g</button>
+                    <button class="card-size-btn" data-size="200g">200g</button>
+                  </div>
                   <div class="menu-card-footer">
                     <div class="price-container">
-                      <span class="price-original">$58.32</span>
-                      <span class="price">$34.99</span>
+                      <span class="price-original">₹3,779</span>
+                      <span class="price">₹1,699</span>
                     </div>
-                    <button class="btn btn-buy" data-id="strawberry">BUY NOW</button>
+                    <div class="card-action-buttons">
+                      <button class="btn btn-add-to-cart" data-id="strawberry">ADD TO CART</button>
+                      <button class="btn btn-buy-now" data-id="strawberry">BUY NOW</button>
+                    </div>
                   </div>
                 </div>
               </div>
-
+ 
               <!-- Card 3: Mango -->
               <div class="menu-card" data-flavor="2">
                 <div class="menu-card-img-wrapper">
                   <img src="/mango_matcha.jpg" alt="Mango Matcha Packaging" class="menu-card-img">
                 </div>
                 <div class="menu-card-info">
-                  <span class="card-badge-sale">40% OFF</span>
+                  <div class="card-badges">
+                    <span class="card-badge-sale">55% OFF</span>
+                    <span class="card-badge-premium">Premium Grade</span>
+                  </div>
                   <h3>Mango Matcha</h3>
                   <p class="menu-card-desc">Sweet tropical sun-ripened mango layered with our premium ceremonial matcha.</p>
+                  <div class="card-size-selector">
+                    <button class="card-size-btn" data-size="30g">30g</button>
+                    <button class="card-size-btn" data-size="50g">50g</button>
+                    <button class="card-size-btn active" data-size="100g">100g</button>
+                    <button class="card-size-btn" data-size="200g">200g</button>
+                  </div>
                   <div class="menu-card-footer">
                     <div class="price-container">
-                      <span class="price-original">$58.32</span>
-                      <span class="price">$34.99</span>
+                      <span class="price-original">₹3,779</span>
+                      <span class="price">₹1,699</span>
                     </div>
-                    <button class="btn btn-buy" data-id="mango">BUY NOW</button>
+                    <div class="card-action-buttons">
+                      <button class="btn btn-add-to-cart" data-id="mango">ADD TO CART</button>
+                      <button class="btn btn-buy-now" data-id="mango">BUY NOW</button>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Card 4: Rose -->
-              <div class="menu-card" data-flavor="3">
-                <div class="menu-card-img-wrapper">
-                  <img src="/rose_matcha.jpg" alt="Rose Matcha Packaging" class="menu-card-img">
-                </div>
-                <div class="menu-card-info">
-                  <span class="card-badge-sale">40% OFF</span>
-                  <h3>Rose Matcha</h3>
-                  <p class="menu-card-desc">Delicately aromatic Uji matcha infused with natural red rose petals extract.</p>
-                  <div class="menu-card-footer">
-                    <div class="price-container">
-                      <span class="price-original">$58.32</span>
-                      <span class="price">$34.99</span>
-                    </div>
-                    <button class="btn btn-buy" data-id="rose">BUY NOW</button>
-                  </div>
-                </div>
+            <!-- View All Blends CTA -->
+            <div style="text-align: center; margin-top: 48px;">
+              <a href="/products.html" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Explore All Blends</a>
+            </div>
+          </section>
+
+          <!-- POUCH BANNER SECTION -->
+          <section class="pouch-banner-section">
+            <div class="pouch-banner-container">
+              <img src="/matcha_pouches_fruits.jpg" alt="MATCHA BOOK Collection Pouches" class="pouch-banner-bg">
+              <div class="pouch-banner-overlay"></div>
+              <div class="pouch-banner-content">
+                <span class="pouch-banner-tag">The Complete Book of Flavors</span>
+                <h2>Sip Good. Feel Good.</h2>
+                <p>Explore our premium range of Japanese Uji Matcha blends, thoughtfully infused with natural fruits and botanicals to deliver tranquility and focus to your busy day.</p>
+                <a href="/products.html" class="btn btn-primary" style="background-color: var(--color-cream-bg); color: var(--color-btn-primary); border: none; text-decoration: none;">Shop The Collection</a>
               </div>
-
-              <!-- Card 5: Apple -->
-              <div class="menu-card" data-flavor="4">
-                <div class="menu-card-img-wrapper">
-                  <img src="/apple_matcha.jpg" alt="Apple Matcha Packaging" class="menu-card-img">
-                </div>
-                <div class="menu-card-info">
-                  <span class="card-badge-sale">40% OFF</span>
-                  <h3>Apple Matcha</h3>
-                  <p class="menu-card-desc">Refreshing crisp apple infusion blended with premium ceremonial Uji matcha.</p>
-                  <div class="menu-card-footer">
-                    <div class="price-container">
-                      <span class="price-original">$58.32</span>
-                      <span class="price">$34.99</span>
-                    </div>
-                    <button class="btn btn-buy" data-id="apple">BUY NOW</button>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </section>
 
@@ -295,7 +420,7 @@
                   We've answered the most common questions to make your experience as smooth as our matcha.
                 </p>
                 <div class="faq-socials">
-                  <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="https://instagram.com/matchabook.in" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                   <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
                   <a href="#" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
                 </div>
@@ -352,6 +477,19 @@
                   <div class="accordion-content">
                     <div class="accordion-inner">
                       Subscribing to your favorite blend guarantees regular deliveries to your doorstep. On top of our site-wide 40% discount, subscription orders receive an additional 10% off on every shipment, with absolute freedom to skip, pause, or cancel anytime.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Accordion Item 5 -->
+                <div class="accordion-item">
+                  <button class="accordion-header">
+                    <span>🚚 What are the shipping charges?</span>
+                    <span class="accordion-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                  </button>
+                  <div class="accordion-content">
+                    <div class="accordion-inner">
+                      We offer free shipping on all orders above ₹1,199. For orders below ₹1,199, standard shipping charges apply.
                     </div>
                   </div>
                 </div>
@@ -440,13 +578,13 @@
             </div>
             <div class="footer-contact">
               <span><i class="fa-solid fa-phone"></i> 9899801069</span>
-              <span><i class="fa-solid fa-envelope"></i> sankalp.cr12@gmail.com</span>
+              <span><i class="fa-solid fa-envelope"></i> support.matchabook@gmail.com</span>
+              <span><i class="fa-brands fa-instagram"></i> <a href="https://instagram.com/matchabook.in" target="_blank" style="color: inherit; text-decoration: none;">@matchabook.in</a></span>
             </div>
             <p class="footer-copy">© 2026 MATCHA BOOK. All rights reserved.</p>
           </footer>
 
-        </main>
-      </div>
+          </main>
 
     </div>
 
@@ -464,7 +602,7 @@
         <div class="modal-body">
           <p>At MATCHA BOOK, we take pride in the quality and freshness of our small-batch flavoured matcha powder blends. Because our product is a perishable food item, we are unable to accept returns or offer refunds once a package has been opened, unless there is a clear manufacturer defect or damage in transit.</p>
           <h4>Damaged or Defective Items</h4>
-          <p>If your package arrived damaged during transit or is determined to be defective, please contact us immediately within 7 days of delivery at <strong>sankalp.cr12@gmail.com</strong> or call us at <strong>9899801069</strong>. We will happily send a replacement pouch of the same flavor at no additional cost, or issue a full refund to your original payment method.</p>
+          <p>If your package arrived damaged during transit or is determined to be defective, please contact us immediately within 7 days of delivery at <strong>support.matchabook@gmail.com</strong> or call us at <strong>9899801069</strong>. We will happily send a replacement pouch of the same flavor at no additional cost, or issue a full refund to your original payment method.</p>
           <h4>Order Modifications</h4>
           <p>Orders can only be modified or cancelled before they are processed and shipped from our fulfillment center. Once a tracking number is generated, the sale is final.</p>
         </div>
@@ -498,7 +636,7 @@
         <div class="modal-body">
           <p>Welcome to MATCHA BOOK. By accessing this website and purchasing our products, you agree to comply with and be bound by the following terms and conditions of service.</p>
           <h4>General Conditions</h4>
-          <p>We reserve the right to refuse service to anyone for any reason at any time. All product pricing, promotions, and subscription benefits are subject to change without prior notice. The 40% sitewide discount applies automatically at checkout unless specified otherwise.</p>
+          <p>We reserve the right to refuse service to anyone for any reason at any time. All product pricing, promotions, and subscription benefits are subject to change without prior notice. The discount (40% off Ceremonial Matcha, 55% off Flavoured Matcha) applies automatically at checkout unless specified otherwise.</p>
           <h4>Intellectual Property</h4>
           <p>All content included on this site, such as text, logos, custom graphics, and images, is the property of MATCHA BOOK and protected by international trademark and copyright laws. Unauthorized reproduction is strictly prohibited.</p>
         </div>

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | MATCHA BOOK</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+
+    <div class="outer-container theme-0" id="outerContainer">
+      <div class="mockup-card" id="mockupCard">
+        
+        <!-- Announcement Bar -->
+        <div class="announcement-bar">
+          <span>✨ Free shipping on orders above ₹1,199 | Premium Grade Uji Matcha ✨</span>
+        </div>
+        
+        <!-- Header / Navigation -->
+        <header class="glass-header">
+          <div class="logo">
+            <span class="logo-txt">MATCHA BOOK</span><span class="logo-accent">.</span>
+          </div>
+          <nav class="nav-capsule">
+            <a href="/index.html" class="nav-link">HOME</a>
+            <a href="/products.html" class="nav-link">PRODUCTS</a>
+            <a href="/index.html#about" class="nav-link">ABOUT</a>
+            <a href="/index.html#faq" class="nav-link">FAQ</a>
+          </nav>
+          <div class="header-actions">
+            <a href="/cart.html" class="action-btn cart-btn" aria-label="Shopping Cart" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <button class="action-btn hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Main Content (Scrollable) -->
+        <main class="main-content" style="padding-top: 145px; padding-left: 48px; padding-right: 48px;">
+          
+          <div class="checkout-container">
+            <div class="checkout-header-row">
+              <a href="/cart.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Return to Cart</a>
+              <h2>Checkout</h2>
+            </div>
+
+            <form id="checkoutForm" class="checkout-form-grid" onsubmit="return false;">
+              <!-- Left Column: Shipping & Billing Details -->
+              <div class="checkout-details-column">
+                <div class="checkout-card">
+                  <h3><i class="fa-solid fa-truck"></i> Shipping Information</h3>
+                  
+                  <div class="form-group">
+                    <label for="shippingName">Full Name *</label>
+                    <input type="text" id="shippingName" placeholder="Enter your full name" required>
+                  </div>
+                  
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="shippingPhone">Phone Number *</label>
+                      <input type="tel" id="shippingPhone" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="shippingWhatsApp">WhatsApp Number *</label>
+                      <input type="tel" id="shippingWhatsApp" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                      <div class="checkbox-group">
+                        <input type="checkbox" id="syncWhatsApp">
+                        <label for="syncWhatsApp" class="checkbox-label">Same as Phone Number</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="shippingAddress">Shipping Address *</label>
+                    <textarea id="shippingAddress" rows="3" placeholder="Flat/House No, Building, Street, Area, City, Pincode" required></textarea>
+                  </div>
+                </div>
+
+                <!-- Payment Method Card -->
+                <div class="checkout-card">
+                  <h3><i class="fa-solid fa-credit-card"></i> Payment Details</h3>
+                  
+                  <div class="payment-tabs">
+                    <button type="button" class="payment-tab active" data-method="card">
+                      <i class="fa-solid fa-credit-card"></i> Card
+                    </button>
+                    <button type="button" class="payment-tab" data-method="upi">
+                      <i class="fa-solid fa-mobile-screen-button"></i> UPI
+                    </button>
+                    <button type="button" class="payment-tab" data-method="cod">
+                      <i class="fa-solid fa-hand-holding-dollar"></i> COD
+                    </button>
+                  </div>
+
+                  <!-- Credit Card Details Form -->
+                  <div class="payment-content active" id="payment-content-card">
+                    <div class="form-group">
+                      <label for="cardNum">Card Number *</label>
+                      <input type="text" id="cardNum" placeholder="1234 5678 1234 5678" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="cardExpiry">Expiry Date *</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                      </div>
+                      <div class="form-group">
+                        <label for="cardCvv">CVV *</label>
+                        <input type="password" id="cardCvv" placeholder="123" maxlength="3">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- UPI Form -->
+                  <div class="payment-content" id="payment-content-upi">
+                    <div class="form-group">
+                      <label for="upiId">UPI ID (VPA) *</label>
+                      <input type="text" id="upiId" placeholder="username@upi">
+                      <small class="form-helper">Enter your GPay, PhonePe, or Paytm UPI ID</small>
+                    </div>
+                  </div>
+
+                  <!-- COD Notice -->
+                  <div class="payment-content" id="payment-content-cod">
+                    <div class="cod-notice">
+                      <i class="fa-solid fa-circle-check"></i>
+                      <p>You have selected Cash on Delivery. You will pay in cash or via UPI when our delivery partner reaches your address.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Order Summary & Action -->
+              <div class="checkout-summary-column">
+                <div class="checkout-card summary-card">
+                  <h3>Order Summary</h3>
+                  <div class="checkout-summary-items" id="checkoutSummaryItems">
+                    <!-- Populated dynamically -->
+                  </div>
+                  
+                  <div class="summary-divider"></div>
+                  
+                  <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="checkoutSubtotal">₹0</span>
+                  </div>
+                  <div class="summary-line">
+                    <span>Shipping</span>
+                    <span id="checkoutShipping">₹0</span>
+                  </div>
+                  <div class="summary-line total-line">
+                    <span>Total Amount</span>
+                    <span id="checkoutGrandTotal">₹0</span>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary place-order-btn" id="placeOrderBtn">
+                    Place Order & Pay
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- LEGAL & CONTACT FOOTER -->
+          <footer class="site-footer" style="margin-top: 60px;">
+            <div class="footer-links">
+              <a href="#" class="legal-link" data-modal="refund">Refund Policy</a>
+              <a href="#" class="legal-link" data-modal="privacy">Privacy Policy</a>
+              <a href="#" class="legal-link" data-modal="terms">Terms of Service</a>
+              <a href="#" class="legal-link" data-modal="disclaimer">Disclaimer</a>
+            </div>
+            <div class="footer-contact">
+              <span><i class="fa-solid fa-phone"></i> 9899801069</span>
+              <span><i class="fa-solid fa-envelope"></i> support.matchabook@gmail.com</span>
+              <span><i class="fa-brands fa-instagram"></i> <a href="https://instagram.com/matchabook.in" target="_blank" style="color: inherit; text-decoration: none;">@matchabook.in</a></span>
+            </div>
+            <p class="footer-copy">© 2026 MATCHA BOOK. All rights reserved.</p>
+          </footer>
+
+        </main>
+
+        <!-- Payment Loading Spinner Overlay -->
+        <div class="payment-loader-overlay" id="paymentLoader">
+          <div class="loader-content">
+            <div class="spinner"></div>
+            <h3>Processing Payment...</h3>
+            <p>Please do not close this window or refresh the page.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL WINDOWS OVERLAYS -->
+    <!-- Refund Policy Modal -->
+    <div class="modal-overlay" id="modal-refund">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Refund Policy</h3>
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>At MATCHA BOOK, we take pride in the quality and freshness of our small-batch flavoured matcha powder blends. Because our product is a perishable food item, we are unable to accept returns or offer refunds once a package has been opened, unless there is a clear manufacturer defect or damage in transit.</p>
+          <h4>Damaged or Defective Items</h4>
+          <p>If your package arrived damaged during transit or is determined to be defective, please contact us immediately within 7 days of delivery at <strong>support.matchabook@gmail.com</strong> or call us at <strong>9899801069</strong>. We will happily send a replacement pouch of the same flavor at no additional cost, or issue a full refund to your original payment method.</p>
+          <h4>Order Modifications</h4>
+          <p>Orders can only be modified or cancelled before they are processed and shipped from our fulfillment center. Once a tracking number is generated, the sale is final.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="modal-privacy">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Privacy Policy</h3>
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>MATCHA BOOK respects your privacy and is committed to protecting the personal data you share with us. This policy describes how we collect, store, and utilize data when you browse our site, purchase products, or subscribe to our newsletter.</p>
+          <h4>Information We Collect</h4>
+          <p>When you complete a purchase, subscribe, or sign up on MATCHA BOOK, we collect personal information such as your name, delivery address, phone number (WhatsApp enabled), billing address, email, and payment card details. We also collect anonymous site usage statistics (cookies, IP address, device types) to optimize user experience.</p>
+          <h4>How We Use Your Data</h4>
+          <p>We use your data solely to fulfill orders, manage subscriptions, communicate shipping updates via SMS/WhatsApp/Email, and share voluntary marketing newsletters. We never sell or distribute your data to third-party brokers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal-overlay" id="modal-terms">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Terms of Service</h3>
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Welcome to MATCHA BOOK. By accessing this website and purchasing our products, you agree to comply with and be bound by the following terms and conditions of service.</p>
+          <h4>General Conditions</h4>
+          <p>We reserve the right to refuse service to anyone for any reason at any time. All product pricing, promotions, and subscription benefits are subject to change without prior notice. The discount (40% off Ceremonial Matcha, 55% off Flavoured Matcha) applies automatically at checkout unless specified otherwise.</p>
+          <h4>Intellectual Property</h4>
+          <p>All content included on this site, such as text, logos, custom graphics, and images, is the property of MATCHA BOOK and protected by international trademark and copyright laws. Unauthorized reproduction is strictly prohibited.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div class="modal-overlay" id="modal-disclaimer">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Disclaimer</h3>
+          <button class="modal-close" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>The information provided on the MATCHA BOOK website is intended for general educational and wellness purposes only and should not be construed as professional medical advice, diagnosis, or treatment.</p>
+          <h4>Health Disclaimers</h4>
+          <p>Matcha green tea is a natural source of antioxidants, L-theanine, and caffeine. Although it is generally recognized as safe for healthy individuals, individual reactions may vary. If you are pregnant, nursing, taking medications, or have a pre-existing medical condition, please consult your healthcare provider before introducing matcha into your daily ritual.</p>
+          <h4>Product Claims</h4>
+          <p>Statements regarding health benefits (such as calm energy, focus, mindfulness, and cellular health) have not been evaluated by the Food and Drug Administration (FDA) or local health authorities. Our products are not intended to diagnose, treat, cure, or prevent any disease.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Specific Script -->
+    <script type="module" src="/src/checkout.js"></script>
+  </body>
+</html>

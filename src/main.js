@@ -1,4 +1,4 @@
-// main.js - MATCHA BOOK 5-Product Rebranded Logic
+// main.js - MATCHA BOOK Home Page Logic
 
 /* ==========================================================================
    1. PRODUCT FLAVORS DATA (5 FLAVORS FROM UPLOADED PACKAGES)
@@ -47,6 +47,28 @@ const FLAVORS = [
 ];
 
 /* ==========================================================================
+   1.1 PRODUCT PRICING DATA (INR)
+   ========================================================================== */
+const PRICING = {
+  ceremonial: {
+    "30g": { current: 649, original: 1399 },
+    "50g": { current: 999, original: 2199 },
+    "100g": { current: 1699, original: 3779 },
+    "200g": { current: 2999, original: 6649 }
+  },
+  flavoured: {
+    "30g": { current: 649, original: 1399 },
+    "50g": { current: 999, original: 2199 },
+    "100g": { current: 1699, original: 3779 },
+    "200g": { current: 2999, original: 6649 }
+  }
+};
+
+function getFlavorType(index) {
+  return index === 0 ? 'ceremonial' : 'flavoured';
+}
+
+/* ==========================================================================
    2. DOM ELEMENT SELECTORS
    ========================================================================== */
 const outerContainer = document.getElementById('outerContainer');
@@ -56,9 +78,7 @@ const heroSubtitle = document.getElementById('heroSubtitle');
 const prevSlideBtn = document.getElementById('prevSlide');
 const nextSlideBtn = document.getElementById('nextSlide');
 const cartBadge = document.getElementById('cartBadge');
-const orderNowBtn = document.getElementById('orderNowBtn');
 const floatingContainer = document.getElementById('floatingContainer');
-const testimonialStage = document.getElementById('testimonialStage');
 const prevTestimonialBtn = document.getElementById('prevTestimonial');
 const nextTestimonialBtn = document.getElementById('nextTestimonial');
 
@@ -70,6 +90,7 @@ let isTransitioning = false;
 
 // Initialize Hero Slides
 function initHeroSlider() {
+  if (!sliderTrack) return;
   sliderTrack.innerHTML = '';
   FLAVORS.forEach((flavor) => {
     const slideDiv = document.createElement('div');
@@ -111,21 +132,28 @@ function updateSliderState() {
   });
 
   // Update Theme class on outer container
-  outerContainer.className = 'outer-container'; // reset
-  outerContainer.classList.add(FLAVORS[currentSlide].themeClass);
+  if (outerContainer) {
+    outerContainer.className = 'outer-container'; // reset
+    outerContainer.classList.add(FLAVORS[currentSlide].themeClass);
+  }
 
   // Update Hero Text with a smooth fade animation
-  heroTitle.classList.remove('fade-anim');
-  heroSubtitle.classList.remove('fade-anim');
-  
-  // Trigger reflow to restart css animation
-  void heroTitle.offsetWidth; 
-  
-  heroTitle.textContent = FLAVORS[currentSlide].title;
-  heroSubtitle.textContent = FLAVORS[currentSlide].subtitle;
-  
-  heroTitle.classList.add('fade-anim');
-  heroSubtitle.classList.add('fade-anim');
+  if (heroTitle && heroSubtitle) {
+    heroTitle.classList.remove('fade-anim');
+    heroSubtitle.classList.remove('fade-anim');
+    
+    // Trigger reflow to restart css animation
+    void heroTitle.offsetWidth; 
+    
+    heroTitle.textContent = FLAVORS[currentSlide].title;
+    heroSubtitle.textContent = FLAVORS[currentSlide].subtitle;
+    
+    heroTitle.classList.add('fade-anim');
+    heroSubtitle.classList.add('fade-anim');
+  }
+
+  // Update hero price display
+  updateHeroPrice();
 }
 
 // Next Slide Action
@@ -176,21 +204,41 @@ if (nextSlideBtn) nextSlideBtn.addEventListener('click', handleManualNext);
 if (prevSlideBtn) prevSlideBtn.addEventListener('click', handleManualPrev);
 
 // Support clicking on the "next" blurred slide directly
-sliderTrack.addEventListener('click', (e) => {
-  const clickedSlide = e.target.closest('.slide');
-  if (clickedSlide && clickedSlide.classList.contains('next')) {
-    handleManualNext();
-  }
-});
+if (sliderTrack) {
+  sliderTrack.addEventListener('click', (e) => {
+    const clickedSlide = e.target.closest('.slide');
+    if (clickedSlide && clickedSlide.classList.contains('next')) {
+      handleManualNext();
+    }
+  });
+}
 
 /* ==========================================================================
-   4. WEIGHT & SIZE SELECTOR LOGIC
+   4. WEIGHT & SIZE SELECTOR LOGIC (HERO)
    ========================================================================== */
 const sizeButtons = document.querySelectorAll('.size-btn');
+const heroPriceOriginal = document.getElementById('heroPriceOriginal');
+const heroPriceCurrent = document.getElementById('heroPriceCurrent');
+
+function updateHeroPrice() {
+  const activeSizeBtn = document.querySelector('.size-btn.active');
+  const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
+  const flavorType = getFlavorType(currentSlide);
+  
+  const priceData = PRICING[flavorType][size];
+  if (priceData && heroPriceCurrent && heroPriceOriginal) {
+    heroPriceCurrent.textContent = `₹${priceData.current.toLocaleString('en-IN')}`;
+    heroPriceOriginal.textContent = `₹${priceData.original.toLocaleString('en-IN')}`;
+  }
+}
+
 sizeButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
     sizeButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    
+    // Update price display
+    updateHeroPrice();
     
     // Add micro-animation bounce effect on active slide when size changes
     const activeSlideImg = document.querySelector('.slide.active .pouch-img');
@@ -204,13 +252,51 @@ sizeButtons.forEach((btn) => {
 });
 
 /* ==========================================================================
-   5. MENU LIST DIRECT SWITCHING
+   4.1 MENU CARD DYNAMIC PRICING LOGIC
+   ========================================================================== */
+function initMenuCardPricing() {
+  const menuCards = document.querySelectorAll('.menu-card');
+  
+  menuCards.forEach((card) => {
+    const flavorIndex = parseInt(card.dataset.flavor);
+    const flavorType = getFlavorType(flavorIndex);
+    const sizeBtns = card.querySelectorAll('.card-size-btn');
+    const priceOriginalEl = card.querySelector('.price-original');
+    const priceCurrentEl = card.querySelector('.price');
+    
+    function updateCardPrice(size) {
+      const priceData = PRICING[flavorType][size];
+      if (priceData && priceCurrentEl && priceOriginalEl) {
+        priceCurrentEl.textContent = `₹${priceData.current.toLocaleString('en-IN')}`;
+        priceOriginalEl.textContent = `₹${priceData.original.toLocaleString('en-IN')}`;
+      }
+    }
+    
+    sizeBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Avoid triggering card selection slide switch
+        
+        sizeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const selectedSize = btn.dataset.size;
+        updateCardPrice(selectedSize);
+      });
+    });
+    
+    // Set initial active state price (100g by default)
+    updateCardPrice('100g');
+  });
+}
+
+/* ==========================================================================
+   5. MENU LIST DIRECT SWITCHING (HOME PAGE CAROUSEL SYNC)
    ========================================================================== */
 const menuCards = document.querySelectorAll('.menu-card');
 menuCards.forEach((card) => {
   card.addEventListener('click', (e) => {
-    // Avoid double trigger if clicking BUY NOW button
-    if (e.target.classList.contains('btn-buy')) return;
+    // Avoid double trigger if clicking buttons inside card
+    if (e.target.classList.contains('btn-add-to-cart') || e.target.classList.contains('btn-buy-now') || e.target.closest('.qty-selector') || e.target.closest('.card-size-btn')) return;
     
     const flavorIndex = parseInt(card.dataset.flavor);
     currentSlide = flavorIndex;
@@ -218,10 +304,13 @@ menuCards.forEach((card) => {
     startAutoSlide(); // reset timer on manual selection
     
     // Smooth scroll to top of card hero
-    document.querySelector('.mockup-card').scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    const mockupCard = document.getElementById('mockupCard');
+    if (mockupCard) {
+      mockupCard.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   });
 });
 
@@ -262,6 +351,7 @@ const testimonialCards = document.querySelectorAll('.testimonial-card');
 
 function updateTestimonials() {
   const total = testimonialCards.length;
+  if (total === 0) return;
   
   testimonialCards.forEach((card) => {
     card.className = 'testimonial-card'; // reset classes
@@ -277,14 +367,14 @@ function updateTestimonials() {
   });
 }
 
-// --------------------------------------------------------------------------
 // Testimonials Autoplay Logic (4s Interval)
-// --------------------------------------------------------------------------
 let testimonialInterval;
 
 function startTestimonialAutoplay() {
   stopTestimonialAutoplay();
-  testimonialInterval = setInterval(nextTestimonial, 4000);
+  if (testimonialCards.length > 0) {
+    testimonialInterval = setInterval(nextTestimonial, 4000);
+  }
 }
 
 function stopTestimonialAutoplay() {
@@ -314,44 +404,135 @@ function handleManualPrevTestimonial() {
   startTestimonialAutoplay();
 }
 
-prevTestimonialBtn.addEventListener('click', handleManualPrevTestimonial);
-nextTestimonialBtn.addEventListener('click', handleManualNextTestimonial);
+if (prevTestimonialBtn) prevTestimonialBtn.addEventListener('click', handleManualPrevTestimonial);
+if (nextTestimonialBtn) nextTestimonialBtn.addEventListener('click', handleManualNextTestimonial);
+
 
 /* ==========================================================================
-   8. SHOPPING CART INCREMENT
+   8. SHOPPING CART LOCAL STORAGE ACTIONS
    ========================================================================== */
-let cartCount = 2;
-function addToCart() {
-  cartCount += 1;
-  cartBadge.textContent = cartCount;
-  
-  // Bounce animation on badge
-  cartBadge.style.transform = 'scale(1.3)';
-  setTimeout(() => {
-    cartBadge.style.transform = 'scale(1)';
-  }, 300);
+let cart = JSON.parse(localStorage.getItem('mb_cart')) || [];
+
+function saveCart() {
+  localStorage.setItem('mb_cart', JSON.stringify(cart));
+  updateCartBadge();
 }
 
-orderNowBtn.addEventListener('click', () => {
-  // Find Your Blend links directly to menu section
-  document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
-});
+function addToCartItem(flavorIndex, size) {
+  const flavor = FLAVORS[flavorIndex];
+  const flavorType = getFlavorType(flavorIndex);
+  const priceData = PRICING[flavorType][size];
+  
+  const existingItem = cart.find(item => item.flavorIndex === flavorIndex && item.size === size);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      flavorIndex: flavorIndex,
+      name: flavor.name,
+      img: `/${flavor.name.toLowerCase().replace(" ", "_")}.jpg`,
+      size: size,
+      price: priceData.current,
+      quantity: 1
+    });
+  }
+  
+  saveCart();
+  showToast(`🍵 ${flavor.name} (${size}) added to cart!`);
+}
 
-const buyButtons = document.querySelectorAll('.btn-buy');
-buyButtons.forEach((btn) => {
+function updateCartBadge() {
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartBadge = document.getElementById('cartBadge');
+  if (cartBadge) {
+    cartBadge.textContent = totalItems;
+    
+    // Badge animate bounce
+    cartBadge.style.transform = 'scale(1.3)';
+    setTimeout(() => {
+      cartBadge.style.transform = 'scale(1)';
+    }, 300);
+  }
+}
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'cart-toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => toast.classList.add('visible'), 50);
+  
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 400);
+  }, 2500);
+}
+
+// Add event listeners for cart action buttons in home page cards
+const addToCartBtns = document.querySelectorAll('.btn-add-to-cart');
+addToCartBtns.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
-    addToCart();
+    const card = btn.closest('.menu-card');
+    const flavorIndex = parseInt(card.dataset.flavor);
+    const activeSizeBtn = card.querySelector('.card-size-btn.active');
+    const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
     
-    // Add visual success ripple/bounce
+    addToCartItem(flavorIndex, size);
+    
+    const oldText = btn.textContent;
     btn.textContent = "ADDED ✓";
     btn.style.backgroundColor = "var(--color-forest-accent)";
     setTimeout(() => {
-      btn.textContent = "BUY NOW";
+      btn.textContent = oldText;
       btn.style.backgroundColor = "";
     }, 1200);
   });
 });
+
+const buyNowBtns = document.querySelectorAll('.btn-buy-now');
+buyNowBtns.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const card = btn.closest('.menu-card');
+    const flavorIndex = parseInt(card.dataset.flavor);
+    const activeSizeBtn = card.querySelector('.card-size-btn.active');
+    const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
+    
+    addToCartItem(flavorIndex, size);
+    window.location.href = '/checkout.html';
+  });
+});
+
+// Event listeners for hero cart/checkout actions
+const heroBuyNowBtn = document.getElementById('heroBuyNowBtn');
+const heroAddToCartBtn = document.getElementById('heroAddToCartBtn');
+
+if (heroAddToCartBtn) {
+  heroAddToCartBtn.addEventListener('click', () => {
+    const activeSizeBtn = document.querySelector('.size-btn.active');
+    const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
+    
+    addToCartItem(currentSlide, size);
+    
+    const oldText = heroAddToCartBtn.textContent;
+    heroAddToCartBtn.textContent = "ADDED ✓";
+    setTimeout(() => {
+      heroAddToCartBtn.textContent = oldText;
+    }, 1200);
+  });
+}
+
+if (heroBuyNowBtn) {
+  heroBuyNowBtn.addEventListener('click', () => {
+    const activeSizeBtn = document.querySelector('.size-btn.active');
+    const size = activeSizeBtn ? activeSizeBtn.dataset.size : '100g';
+    
+    addToCartItem(currentSlide, size);
+    window.location.href = '/checkout.html';
+  });
+}
 
 /* ==========================================================================
    9. DYNAMIC FLOATING PARTICLES (VALUE PROP CANVAS)
@@ -364,6 +545,7 @@ const particleTypes = [
 ];
 
 function generateFloatingParticles() {
+  if (!floatingContainer) return;
   floatingContainer.innerHTML = '';
   // Generate 12 floating items scattered
   for (let i = 0; i < 12; i++) {
@@ -466,13 +648,16 @@ modalOverlays.forEach((overlay) => {
 });
 
 /* ==========================================================================
-   11. INITIALIZATION
+   12. INITIALIZATION
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   initHeroSlider();
   updateTestimonials();
   startAutoSlide();
   startTestimonialAutoplay();
+  initMenuCardPricing();
+  updateHeroPrice();
+  updateCartBadge();
 });
 
 // Immediately invoke slider setup in case DOMContentLoaded fired
@@ -480,3 +665,6 @@ initHeroSlider();
 updateTestimonials();
 startAutoSlide();
 startTestimonialAutoplay();
+initMenuCardPricing();
+updateHeroPrice();
+updateCartBadge();
